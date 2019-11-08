@@ -1,0 +1,81 @@
+﻿@model InfoMallWeb.Models.Newsletter
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Newsletter</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" class="create-newsletter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!----<div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>-->
+            <div class="form-group">
+                <label class="control-label">Subject</label>
+                <input type="text" class="form-control" id="subject" />
+            </div>
+
+            <div class="form-group">
+                <div id="editor"></div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label">Message</label>
+                <textarea class="message"></textarea>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>var editor = new Jodit('#editor');</script>
+<script>
+
+    var newsLetterCreate = document.querySelector('.create-newsletter')
+    
+    newsLetterCreate.addEventListener('submit', async function (e) {
+        e.preventDefault()
+        var messageBody = document.querySelector('.message')
+        console.log(messageBody, newsLetterCreate.subject.value);
+        
+        await fetch("/Newsletters/Send", {
+            method: "POST",
+            body: JSON.stringify({
+                Message: messageBody.innerHTML,
+                Subject: newsLetterCreate.subject.value
+            }),
+            headers: {
+                'Content-Type': "application/json"
+            }
+        }).then(res => {
+            console.log(res)
+            if (res.status === 204) {
+                swal({
+                    title: "Newsletter sent",
+                    text: "You have succesfully sent newsletter across to your subscribers",
+                    icon: "success",
+                })
+            }
+           
+        })
+
+    })
+    </script>
+}

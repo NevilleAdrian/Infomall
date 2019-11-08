@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model InfoMallWeb.Models.ContactInformation
+
+
+
+@{
+    ViewData.AddActiveMainPage(MainNavBar.ContactUs);
+    ViewData["logo"] = ".././images/black-logo.svg";
+    ViewData["Project"] = "project-nav";
+    ViewData["Title"] = "Contact";
+    ViewData["ContactClass"] = "contact-mobile";
+}
+@section Link{
+    <link rel="stylesheet" href="~/css/project.css">
+
+}
+<!-- //contact info -->
+<!-- starting a project -->
+<section class="i-h-4">
+    <div class="container-fluid">
+        <div class="row no-margin-left">
+            <div class="col-md-12 consistence spacing-elem no-consistence">
+                <div class="row no-margin">
+                    <h4 class="p-font">Contact Us</h4>
+                    <p class="a-span a-span-w">Let it be a start of something new, unique, outstanding and one of a kind. We will add value to your business and create the opportunity for it to stand out.</p> <br>
+                    <p class="a-span pb-4 a-span-w">
+                        Let's get in touch and get to know each other! <br>
+                        <a title="InfoMall's contact" href="tel:+2347060575236">+234 (0) 706 057 5236 </a><br>
+                        Say Hello <a title="InfoMall's email" href="mailto:contact@infomall.ng">contact@infomall.ng</a>
+                    </p>
+
+                </div>
+                <div class="row no-margin">
+                    <form class="project-form">
+                        <input class="project-form-1" asp-for="Subject" type="text" placeholder="Subject:"> <br>
+                        <input class="project-form-1" asp-for="Name" type="text" placeholder="Name:"> <br>
+                        <input class="project-form-1" asp-for="Email" type="email" placeholder="Email:"> <br>
+                        <input class="project-form-2" asp-for="Message" type="text" placeholder="Your Message:"> <br>
+                        @Html.AntiForgeryToken()
+                        <input id="project-button" type="button" onclick="sendContact()" value="SEND MESSAGE">
+                    </form>
+
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- //contact -->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <!-- Js files -->
+    <!-- JavaScript -->
+    <!-- Default-JavaScript-File -->
+    <script>
+        async function sendContact() {
+            let form = document.getElementsByClassName('project-form')[0];
+            var postBody = new FormData();
+
+            for (let i = 0; i < form.length; i++) {
+
+                postBody.append(form[i].name, form[i].value);
+            }
+            postBody.delete("");
+            console.log(postBody);
+            await fetch("/home/ContactConfirmed", {
+                method: "POST",
+                body: postBody
+            }).then(res => {
+                console.log(res)
+                swal({
+						text: "Message sent successfully",
+						icon: "success"
+                    }).then(value => {
+
+                        if (value != null) {
+                            window.location.href = '@Url.Action("Index", "Home")'
+                        }
+                    })
+            }).catch(err => {
+                console.log(err)
+                swal.stopLoading();
+				swal.close();
+            })
+			
+		}
+    </script>
+}

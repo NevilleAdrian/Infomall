@@ -1,0 +1,131 @@
+﻿@model IEnumerable<InfoMallWeb.Models.CustomerProduct>
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    Layout = "~/Views/Manage/_Layout.cshtml";
+    ViewData.AddActiveMainPage(MainNavBar.Account);
+    ViewData["Title"] = "Details";
+    ViewData.AddActivePage(ManageNavPages.CustomerProduct);
+    ViewData["Success"] = null;
+    int index = 0;
+    string userId = null;
+    ApplicationUser user = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        user = await UserManager.GetUserAsync(User);
+        userId = user.Id;
+    }
+}
+
+<div class="row">
+    <h2 class="col-md-12 lato-important sensible-bold font-size-36">Available Products</h2>
+
+    @if (ViewBag.Success != null)
+    {
+        <p>@ViewBag.Success.ToString()</p>
+    }
+    <div class="col-md-12 font-size-12 lato-important">
+        @foreach (var item in Model.Where(p => p.Customer.UserId == userId))
+        {
+        <div class="mt-4 nice-border-bottom">
+
+            @if (item.CustomerHasPaid)
+            {
+            <h3 class="lato-important sensible-bold font-size-16">You said you want us to do this: "@item.CustomerDecription"</h3>
+                <p></p>
+                <p class="lato-important">Expected Start Date: @item.ExpectedStartDate</p>
+                <p class="lato-important">Expected End Date: @item.ExpectedEndDate</p>
+                <p class="lato-important">Production Stage: @item.Stage</p>
+            }
+            else
+            {
+
+                if (item.Price == (double)0)
+                {
+                    <h3 class="lato-important font-size-16">You said you want us to do this: "@item.CustomerDecription"</h3>
+                    <p></p>
+                    <p class="lato-important">We would contact you for your payment and update your dashboard</p>
+                }
+                else
+                {
+                    <h3 class="lato-important font-size-16 mb-4">You said you want us to do this: "@item.CustomerDecription"</h3>
+                    <a onclick="@($"pay{index}")('@user.Email', @item.Price, '@user.UserName')" class="add-good-margin-top text-white btn btn-primary">Pay with bank</a>
+                    <script>
+		            function @($"pay{index}")(email, amount, firstName) {
+
+			            initRavePay({
+                            PBFPubKey: 'FLWPUBK-0d1f67d88f088393c1f7cfafd807e6e8-X',
+                            customer_email: email,
+                            customer_firstname: firstName,
+                            customer_lastname: "",
+                            custom_description: "",
+                            custom_logo: "",
+                            custom_title: "InfoMall Product Payment",
+                            amount: parseInt(amount),
+                            customer_phone: "",
+                            country: "NG",
+                            currency: "NGN",
+                            txref: "InfoPay-@item.CustomerProductId",
+
+                            onclose: function () {
+                                const s1 = '😭'
+                                swal({
+                                    text: "We are sad to see you go "+s1,
+                                    icon: "warning"
+                                })
+				            },
+                            callback: function (response) {
+                                if (response.tx.chargeResponseCode == "00" ||
+                                    response.tx.chargeResponseCode == "0") {
+                                    console.log(response)
+                                    console.log("I was here");
+                                    let form = document.createElement('form');
+                                    form.action = '@Url.Action("Edit", "CustomerProducts", new { id = item.CustomerProductId, payment = true })';
+                                    form.method = 'Post';
+                                    custProd = createElement("input", "CustomerProductId", "@item.CustomerProductId")
+                                    hasPaid = createElement("input", "CustomerHasPaid", true)
+                                    price = createElement("input", "Price", @item.Price)
+                                    stage = createElement("input", "Stage", 1)
+                                    payType = createElement("input", "PaymentType", 2)
+                                    validation = document.getElementsByName('__RequestVerificationToken')[0];
+                                    valid = createElement("input", "__RequestVerificationToken", validation.value)
+
+                                    form.appendChild(custProd);
+                                    form.appendChild(hasPaid);
+                                    form.appendChild(price);
+                                    form.appendChild(stage);
+                                    form.appendChild(payType);
+                                    form.appendChild(valid);
+
+                                    console.log(form);
+                                    document.body.append(form);
+
+                                    form.submit();
+
+                                }
+                                else {
+                                    swal({
+                                        text: "We could not process your payment",
+                                        text: "Please contact your bank if debited or call us to issue a complaint.",
+                                        icon: "error"
+                                    })
+                                }
+				            }
+			            });
+		            }
+                    </script>
+                }
+
+            }
+        </div>
+           index++;
+        }
+
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/rave.js"></script>
+}

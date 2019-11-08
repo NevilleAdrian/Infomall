@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "UnsubscribeUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["logo"] = ".././images/black-logo.svg";
+    ViewData["Project"] = "project-nav";
+}
+@section Link{
+    <link rel="stylesheet" href="~/css/project.css">
+
+}
+<!--========================= NEWSLETTER-1 ==========================-->
+<section id="newsletter-1" class="section-padding back-size newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center text-black">
+                <p>Enter your email address to unsubscribe</p>
+                <form class="newsletter-form">
+                    <div class="form-group">
+                        <div class="input-group newsletter-input">
+                            <input type="email" class="form-control input-lg" id="email" placeholder="Enter your email address" required />
+                            <span class="input-group-btn"><button class="btn btn-lg"><i class="fa fa-envelope"></i></button></span>
+                        </div>
+                    </div>
+                </form>
+            </div><!-- end columns -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end newsletter-1 -->
+
+@section Scripts{
+    <script>
+        var newsLetterInput = document.querySelector('.newsletter-form');
+
+        newsLetterInput.addEventListener('submit', async function (e) {
+            e.preventDefault()
+            let loader = document.querySelector('.loader')
+            loader.style.display = "block";
+            var email_ = newsLetterInput.email.value
+            await fetch(`/newsletters/unsubscribe?email=${email_}`).then(res => {
+                return res
+            }).then(res => {
+                loader.style.display = "none";
+                console.log(res.status)
+                if (res.status === 204) {
+                    swal({
+                        title: "Successful",
+                        text: "You have succesfully unsubscribed from newsletter",
+                        icon: "success",
+                    })
+                }
+
+            }).catch(err => console.log(err))
+
+        })
+
+    </script>
+}
+
+

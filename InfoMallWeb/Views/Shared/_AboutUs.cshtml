@@ -1,0 +1,121 @@
+﻿@model InfoMallWeb.Models.CategoryForTab
+@inject  IClienteleRepository Client
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var clienteles = await Client.GetAllClientele();
+    var importantClients = clienteles.Where(x => x.Priority == InfoMallWeb.Enums.ClientelePriority.High);
+    int take = 5;
+    int mobileTake = 3;
+}
+
+
+@foreach (var about in Model.ContentForTabs.Take(1))
+{
+    <!-- banner bottom -->
+    <section>
+        <div class="container-fluid">
+            <div class="row no-margin-left">
+                <div class="col-md-12 consistence spacing-elem at-infomall no-consistence">
+                    <div class="text-center i-font-size">
+                        @Html.Raw(Model.ContentForTabs.ElementAt(0).LongDescription)
+                    </div>
+                    
+                </div>
+                <!-- this is for the mobile view -->
+                <div class="col-md-12 at-infomall-mobile i-font-size">
+                    <div class="text-center">
+                        @Html.Raw(Model.ContentForTabs.ElementAt(0).LongDescription)
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    
+}
+
+@{
+    var aboutUs = Model.ContentForTabs.Skip(1).Take(2);
+}
+<section>
+    <div class="container-fluid">
+        <div class="row no-margin-left">
+            <div class="row no-margin spacing-elem consistence no-consistence">
+                @foreach (var about in aboutUs)
+                {
+                    <div class="col-md-4 col-6 mb-4 staff-pic">
+                        <img src="~/@about.ImagePath" class="nevile-mercy">
+                    </div>
+                }
+                <div class="col-md-4 staff-pic">
+                    @foreach (var about in aboutUs.Take(1))
+                    {
+                        <p>@Html.Raw(about.LongDescription)</p>
+
+                    }
+                </div>
+                <div class="col-md-12 spacing-elem-m staff-pic">
+                    @foreach (var about in aboutUs.Skip(1).Take(1))
+                    {
+                        <p>@Html.Raw(about.LongDescription)</p>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*@{ var others = Model.ContentForTabs.Skip(3).Take(3);}
+<div class="container about-background">
+    <div class="row about-1">
+        @foreach (var item in others)
+        {
+            <div class="col-sm-4">
+                <div class="thumbnail">
+                    <img src="~/@item.ImagePath" alt="@item.Title" class="about-icon">
+                    <div class="caption-about">
+                        <h3> @item.Title </h3>
+                        <p>@item.ShortDescription</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>*@
+@(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+
+<!-- clients we've worked with -->
+<div class="container spacing-elem-4 client-images spacing-elem">
+    <h4 id="client-title">Client's We've worked with</h4>
+    @for (int i = 0; i <= importantClients.Count(); i += 5)
+    {
+        <div class="row client-work-1">
+            @foreach (var clientele in importantClients.Skip(i).Take(take))
+            {
+                <div class="col-sm">
+                    <img src="~/@clientele.OldImage" class="client-work" alt="@clientele.ClienteleId">
+                </div>
+            }
+        </div>
+    }
+
+
+    
+    <div class="client-work-mobile">
+        <!-- this is for the mobile view -->
+        @for (int i = 0; i <= importantClients.Count(); i += 3)
+        {
+            <div class="row">
+                @foreach (var clientele in importantClients.Skip(i).Take(mobileTake))
+                {
+                    <div class="col-4">
+                        <img src="~/@clientele.OldImage" class="client-work" alt="@clientele.ClienteleId">
+                    </div>
+                }
+            </div>
+        }
+        
+    </div>
+
+</div>

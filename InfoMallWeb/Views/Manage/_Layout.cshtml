@@ -1,0 +1,23 @@
+﻿@{ 
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container margin-top-100 min-height no-padding-left-mobile no-mobile-margin">
+    <div class="row">
+            <div class="col-md-3">
+                <partial name="~/Views/Manage/_ManageNav.cshtml"/>
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        
+        
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+        

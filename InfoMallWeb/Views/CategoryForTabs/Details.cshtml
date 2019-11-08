@@ -1,0 +1,52 @@
+﻿@model InfoMallWeb.Models.CategoryForTab
+
+@{
+    ViewData["Title"] = Model.CategoryName;
+
+}
+@switch (Model.CategoryName.ToLower())
+{
+    case "about us":
+        ViewData.AddActiveMainPage(MainNavBar.AboutUs);
+        @section Article {
+            <article>
+                <section class="about-banner-text">
+                    <p>About InfoMall</p>
+                </section>
+            </article>
+        }
+        ViewData["PageClass"] = "about-banner";
+        @await Html.PartialAsync("~/Views/Shared/_AboutUs.cshtml", Model)
+        break;
+    case "products":
+        ViewData.AddActiveMainPage(MainNavBar.Products);
+        @section Article {
+            <article>
+                <section class="products-banner-text">
+                    <p>Work</p>
+                </section>
+            </article>
+        }
+        ViewData["PageClass"] = "products-banner";
+        @await Html.PartialAsync("~/Views/Shared/_Product.cshtml", Model)
+        break;
+    case "services":
+        @section Article {
+            <article>
+                <section class="products-banner-text">
+                            <p>Services</p>
+                </section>
+            </article>
+        }
+        ViewData["PageClass"] = "services-banner";
+        ViewData.AddActiveMainPage(MainNavBar.Services);
+        @await Html.PartialAsync("~/Views/Shared/_Services.cshtml", Model)
+        break;
+    case "promotions":
+        ViewData.AddActiveMainPage(MainNavBar.Promotions);
+        @await Html.PartialAsync("~/Views/Shared/_Promotions.cshtml", Model)
+        break;
+    default:
+        @await Html.PartialAsync("~/Views/Shared/_Default.cshtml", Model)
+        break;
+}

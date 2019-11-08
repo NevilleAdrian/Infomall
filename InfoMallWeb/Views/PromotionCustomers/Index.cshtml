@@ -1,0 +1,89 @@
+﻿@model IEnumerable<InfoMallWeb.Models.PromotionCustomer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionCustomerId)
+            </th>
+            <th>
+                Promotion plan
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HasPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentType)
+            </th>
+            <th>
+                Customer Email
+            </th>
+            <th>
+                Customer Phone Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionCustomerId)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Customer.MyPromotions.Where(p => p.PromotionCustomerId == item.PromotionCustomerId).FirstOrDefault().PromotionDetail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HasPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.User.PhoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PromotionCustomerId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PromotionCustomerId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

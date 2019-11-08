@@ -1,0 +1,64 @@
+﻿@model IEnumerable<InfoMallWeb.Dtos.PromotionInformationDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionInformationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionInformationContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OldImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionInformationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionInformationContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PromotionInformationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PromotionInformationId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

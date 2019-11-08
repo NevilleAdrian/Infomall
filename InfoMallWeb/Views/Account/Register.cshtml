@@ -1,0 +1,43 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="banner-bottom py-5">
+    <div class="margin-top-70"></div>
+    <div class="container-fluid no-padding-left-blog no-padding-right">
+        <div class="row no-margin-both">
+            <div class="col-md-12 main_grid_contact bg-light no-light-mobile">
+                <div class="form_div">
+                    <div class="login-page">
+                        <div class="login_form">
+                            <p class="text-center p-5">Let us know you better please</p>
+                            <form asp-action="Register" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="login-form">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input asp-for="UserLikesMail" type="hidden" value="true" />
+                                <input asp-for="FirstName" placeholder="First Name" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                <input asp-for="LastName" placeholder="Last Name" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                <input asp-for="Email" class="form-control" placeholder="Email address" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                <button type="submit" class="full-width">Continue</button>
+                                <p class="font-size-16">Already given us something before? <a asp-action="Login" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]">Enter your email</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //contact -->
+
+</section>
+    
+
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

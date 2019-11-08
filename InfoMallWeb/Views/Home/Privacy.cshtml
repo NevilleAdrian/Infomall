@@ -1,0 +1,25 @@
+﻿@model ContentForTab
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<div class="middle-agile-3">
+    <div class="container">
+        <div class="d-flex mt-4">
+            <div class="min-height">
+                <h1 class="about-header margintop4">Privacy Statement</h1>
+                <div class="col-md-12 no-padding-left-blog font-calibri text-justify">
+                    @if (Model != null)
+                    {
+                        @Html.Raw(Model.LongDescription)
+                    }
+                    else
+                    {
+                        <p>InfoMall's privacy statement</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        

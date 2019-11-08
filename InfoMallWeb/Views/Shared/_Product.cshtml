@@ -1,0 +1,56 @@
+﻿@model InfoMallWeb.Models.CategoryForTab
+
+@inject ICategoryForTabRepository _cat;
+@{ int i = 1; }
+
+@if (Model.ContentForTabs.Count() > 0)
+{
+    <section>
+        <div class="container-fluid">
+            <div class="row no-margin-left">
+                <div class="col-md-12 consistence spacing-elem no-consistence">
+                    <div class="row work-box">
+                        @foreach (var item in Model.ContentForTabs)
+                        {
+                            <div class="col-md-4 @(i > 3 ? "show-all":"")">
+                                <a asp-action="Details" asp-controller="ContentForTabs" asp-route-id="@item.ContentId">
+                                    <img src="~/@item.ImagePath" class="work-icon">
+                                    <h5 class="work-note">@item.Title</h5>
+                                </a>
+                            </div>
+                            i++;
+
+
+                        }
+                    </div>
+                    @if (Model.ContentForTabs.Count() > 3)
+                    {
+                        <div class="work-button">
+                            <button onclick="showAll()" id="work-button-2">See More</button>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- products -->
+}
+@(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+
+<script>
+    function showAll() {
+        var d = document.getElementsByClassName("show-all");
+        Array.from(d).forEach(x => {
+            x.classList.remove('show-all');
+        });
+        var c = document.getElementById('work-button-2');
+        c.classList.add('show-all');
+    }
+</script>
+
+
+
+
+
+

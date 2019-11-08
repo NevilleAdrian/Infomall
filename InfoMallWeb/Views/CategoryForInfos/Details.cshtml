@@ -1,0 +1,146 @@
+﻿@model InfoMallWeb.Models.CategoryForInformation
+
+@inject ICategoryForInfoRepository Categories
+
+@{
+    
+    ViewData["Title"] = Model.CategoryName;
+    List<ContentForMall> contentsTrending = new List<ContentForMall>();
+    List<ContentForMall> contentsRecent = new List<ContentForMall>();
+    var cats = await Categories.GetAllCategories(true);
+}
+
+
+
+<!-- single -->
+<section class="banner-bottom py-5">
+    <div class="container py-xl-5 py-lg-3 padding-top-mobile">
+        <div class="inner-sec mobile-adjust">
+            <div class="row no-mobile-margin">
+                <!-- left side -->
+                <div class="col-lg-8 left-blog-info text-left mobile-adjust">
+                    @foreach (var content in Model.ContentsForInformation)
+                    {
+                    <a class="single-text text-dark font-weight-light" asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@content.ContentId">
+                        <div class="col-md-12 no-padding-left-blog mobile-adjust mb-5">
+                            <div class="row mobile-adjust no-mobile-margin">
+                                <h2 class="col-md-12 blog-h-font mb-3 lato-important mobile-adjust">@content.Title</h2>
+                                <div class="col-md-4 mobile-adjust">
+                                    <img src="~/@content.ImagePath" alt="@content.Title" class="img-responsive" />
+                                </div>
+                                <div class="col-md-8 no-padding-left-mobile">
+                                    <div class="row no-mobile-margin">
+                                        <p class="col-md-12 no-padding-left-mobile font-size-16 lato-important blog-p-font">@content.ShortDescription</p>
+                                        <p class="col-md-12 no-padding-left-mobile font-size-12 lato-important blog-p-font">
+                                            <strong>Date Posted:</strong> @content.DatePosted.ToShortDateString()<br />
+                                            <strong>Number of Views:</strong> @content.NumberOfViews
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+
+                        if (content.NumberOfViews > 2)
+                        {
+                            contentsTrending.Add(content);
+                        }
+                        if (DateTime.Now - content.DatePosted <= TimeSpan.FromDays(2))
+                        {
+                            contentsRecent.Add(content);
+                        }
+
+                    }
+                    
+                </div>
+                <!-- //left side -->
+                <!-- right side -->
+                <aside class="col-lg-4 mobile-adjust right-blog-con text-right">
+                    <div class="right-blog-info text-left padding-right-blog">
+                        
+                        <div class="tech-btm">
+                            <h4 class="lato-important sensible-bold">Categories</h4>
+                            <ul class="list-group single">
+                                @foreach (var category in cats)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a asp-action="Details" asp-controller="CategoryForInfos" asp-route-id="@category.CategoryId">@category.CategoryName</a>
+                                        <span class="badge badge-primary badge-pill">@category.ContentsForInformation.Count().ToString()</span>
+                                    </li>
+                                }
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a asp-action="Mall" asp-controller="CategoryForInfos">All</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-btm">
+                            <h4 class="lato-important sensible-bold">Top stories of the week</h4>
+                            @foreach (var content in contentsTrending)
+                            {
+                                <div class="blog-grids row mb-3 no-mobile-margin">
+                                    <div class="col-md-5 no-padding-left-mobile blog-grid-left">
+                                        <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@content.ContentId" class="text-danger">
+                                            <img src="~/@content.ImagePath" class="img-fluid rounded" alt="@content.ImagePath">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-7 no-padding-left-mobile blog-grid-right">
+                                        <h5 class="lato-important sensible-bold">
+                                            <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@content.ContentId" class="text-danger">
+                                                @content.ShortDescription
+                                            </a>
+                                            
+                                        </h5>
+                                        <div class="sub-meta">
+                                            <span>
+                                                <i class="far fa-clock"></i> @content.DatePosted.ToLongDateString()
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                            
+                        </div>
+
+                        <div class="single-gd tech-btm">
+                            <h4 class="lato-important sensible-bold">Recent Post</h4>
+                            <div class="blog-grids">
+                                @foreach (var content in contentsRecent)
+                                {
+                                    <div class="blog-grids row mb-3 no-mobile-margin">
+                                        <div class="col-md-5 blog-grid-left no-padding-left-mobile">
+                                            <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@content.ContentId" class="text-danger">
+                                                <img src="~/@content.ImagePath" class="img-fluid rounded" alt="@content.ImagePath">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-7 no-padding-left-mobile blog-grid-right">
+                                            <h5 class="lato-important sensible-bold">
+                                                <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@content.ContentId" class="text-danger">
+                                                    @content.ShortDescription
+                                                </a>
+
+                                            </h5>
+                                            <div class="sub-meta">
+                                                <span>
+                                                    <i class="far fa-clock"></i> @content.DatePosted.ToShortDateString()
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- //right side -->
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- //single -->

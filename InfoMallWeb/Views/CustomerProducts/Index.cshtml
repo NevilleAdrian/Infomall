@@ -1,0 +1,100 @@
+﻿@model IEnumerable<InfoMallWeb.Models.CustomerProduct>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerDecription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerHasPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraInformation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.User.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerDecription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerHasPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraInformation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.User.PhoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CustomerProductId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CustomerProductId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<InfoMallWeb.Dtos.ContentForMallDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DatePosted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfViews)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentMallPosition)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LongDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowOnHome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OldImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                Author
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePosted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfViews)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContentMallPosition)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LongDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowOnHome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @item.Author.Name
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ContentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ContentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ContentId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

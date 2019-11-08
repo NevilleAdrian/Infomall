@@ -1,0 +1,225 @@
+﻿@inject ICategoryForTabRepository category
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    List<CategoryForTab> tabs = await category.GetAllCategories(false, false);
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Infomall Nigeria Limited</title>
+
+    <!-- Web Fonts -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora&display=swap"> -->
+    <!---->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="~/@Startup.Configuration["SelfInformation:FaviconUrl"]">
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="InfoMall Nigeria Limited, Technology, Tech Nigeria, Technology, Website, Web Development, Web, Tech, Fintech, Ecommerce, financial technology, build website, customize website, website template, affordable website, build a website, cheap website design, free website, website design company, website design ideas, website design free, how to learn website design, website design templates, website development company, website development services" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103951554-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-103951554-2');
+    </script>
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-103951554-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+    <title>@ViewData["Title"] - InfoMall Nigeria Limited</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    @RenderSection("UpLink", false)
+    <link rel="stylesheet" href="~/css/headers.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true">
+    @RenderSection("Link", false)
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <!--Web fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="i-overlay-drawer" id="_navOverlay"></div>
+    <!-- header -->
+    <div class="@ViewBag.PageClass">
+        <div>
+            <header class="@ViewData["ContactClass"]">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/">
+                            <img src="~/@(ViewData["logo"] ?? Startup.Configuration["SelfInformation:LogoUrl"])" class="logo img-fluid" alt="InfoMall logo identity">
+                        </a>
+                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target=".navbar-toggle" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+                            <img id="toggler-icon" src="~/images/navbar-toggler-icon.png" alt="Navbar Toggler Icon">
+                        </button>
+                        <div class="collapse navbar-collapse navbar-toggle " id="navbarNavAltMarkup">
+                            <ul class="navbar-nav ml-auto">
+                                @foreach (CategoryForTab tab in tabs)
+                                {
+                                    if (tab.CategoryName.ToLower() == "about us")
+                                    {
+                                        <li>
+                                            <a class="nav-link @ViewData["Project"] @MainNavBar.AboutUsNavClass(ViewContext)" asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@tab.CategoryId">Us</a>
+                                        </li>
+                                    }
+                                    else if (tab.CategoryName.ToLower() == "products")
+                                    {
+                                        <li>
+                                            <a class="nav-link @ViewData["Project"] @MainNavBar.ProductsNavClass(ViewContext)" asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@tab.CategoryId">Work</a>
+                                        </li>
+                                    }
+                                    else if (tab.CategoryName.ToLower() == "services")
+                                    {
+                                        <li>
+                                            <a class="nav-link @ViewData["Project"] @MainNavBar.ServicesNavClass(ViewContext)" asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@tab.CategoryId">Services</a>
+                                        </li>
+                                    }
+                                }
+                                <li>
+                                    <a class="nav-link @ViewData["Project"] @MainNavBar.BlogNavClass(ViewContext)" asp-action="Mall" asp-controller="CategoryForInfos">Blog</a>
+                                </li>
+                                <li class="negative-margin-top-5" style="margin-top: -5px;">
+                                    <a class="nav-link @ViewData["Project"] @MainNavBar.ContactUsNavClass(ViewContext) i-f-content" asp-action="Contact" asp-controller="Home" style="background-color: #d92517; padding: 6px 6px;">Start a Project</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <p><hr></p>
+            </header>
+            <header>
+                <div class="container-fluid no-consistence">
+                    @RenderSection("Article", false)
+                </div>
+            </header>
+            
+
+        </div>
+    </div>
+    <!-- //header -->
+
+    @RenderBody()
+
+    <!-- this is the footer section -->
+    <!-- Footer -->
+    <footer>
+        <div class="row pt-5">
+            <div class="col-md-6 col-xl-3 p-sm-0">
+                <div id="img_container">
+                    <img src="~/images/logo.png">
+                </div>
+            </div>
+            <div class="col-3 p-sm-0" id="links_1">
+                <a href="/" class="footer-link">Home</a>
+                @foreach (CategoryForTab tab in tabs)
+                {
+                    if (tab.CategoryName.ToLower() != "privacy")
+                    {
+                        <a asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@tab.CategoryId" class="footer-link">@tab.CategoryName</a>
+                    }
+
+                }
+            </div>
+            <div class="col-3 p-sm-0" id="links_2">
+                <a asp-action="Contact" asp-controller="Home" class="footer-link">Contact us</a>
+                <a asp-action="Mall" asp-controller="CategoryForInfos" class="footer-link">Blog</a>
+                @*<a asp-action="Privacy" asp-controller="Home" class="footer-link">Privacy</a>*@
+            </div>
+            <div class="col-md-6 col-xl-3 p-sm-0" id="subscribe">
+                <p class="mb-0">SUBSCRIBE</p>
+                <form action="#" class="newsletter-form">
+                    <input type="email" class="email-i" name="email" placeholder="Your E-mail Address">
+                    <button type="submit" name="submit">Subscribe</button>
+                </form>
+            </div>
+            <div class="col-12 px-sm-0 footer_bottom">
+                <hr style="background-color: #707070; width: 200%; margin-left: -50%; margin-bottom: 10px;">
+                <span>&copy; @DateTime.Now.Year InfoMall | Nigeria</span>
+                <div id="social_links" style="float: right;">
+                    <span>Connect with us on</span>
+                    <span class="fa fa-twitter"></span>
+                    <span class="fa fa-facebook"></span>
+                    <span class="fa fa-instagram"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- // -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        var neville = document.querySelector('.navbar-toggler')
+
+        neville.addEventListener('click', (e) => {
+            var overLayArea = document.getElementById('_navOverlay');
+
+            if (neville.classList.contains('collapsed')) {
+                document.body.style.position = 'fixed';
+                overLayArea.style.display= 'block';
+                neville.firstElementChild.setAttribute('src', '../../images/navbar-toggler-icon-2.png')
+            }
+            else {
+                document.body.style.position = 'inherit';
+                neville.firstElementChild.setAttribute('src', '../../images/navbar-toggler-icon.png')
+                overLayArea.style.display= 'none';
+            }
+        })
+
+        
+    </script>
+    <script src="~/lib/sweetalert/sweetalert.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        var newsLetterInput = document.querySelector('.newsletter-form');
+
+        newsLetterInput.addEventListener('submit',  async  function (e) {
+            e.preventDefault()
+            await fetch("/newsletters/subscribe", {
+                method: "POST",
+                body: JSON.stringify({ email: newsLetterInput.email.value }),
+                headers: {
+                    'Content-Type': "application/json"
+                }
+            }).then(res => {
+                console.log(res)
+                swal({
+                    title: "Subscription successful",
+                    text: "You have succesfully subscribed for newsletter",
+                    icon: "success",
+                })
+            })
+
+        })
+    </script>
+    <script>
+        let interest = document.getElementsByClassName('logo')[0];
+        if ($(window).width() < 480) {
+            interest.src = '../../@Startup.Configuration["SelfInformation:LogoUrl"]';
+        }
+    </script>
+</body>
+</html>

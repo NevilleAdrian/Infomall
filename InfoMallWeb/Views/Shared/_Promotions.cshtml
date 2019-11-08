@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model InfoMallWeb.Models.CategoryForTab
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{
+    string userId = null;
+    int i = 1;
+    int buttonIndex = 1;
+    string buttonClass = "";
+    if (SignInManager.IsSignedIn(User))
+    {
+
+        ApplicationUser user = await UserManager.GetUserAsync(User);
+        userId = user.Id;
+    }
+    PromotionInformation promoMain = Model.Promotions.FirstOrDefault().PromotionsInformation.Where(p => p.Title.ToLower() == "main").SingleOrDefault();
+    IEnumerable<PromotionInformation> promoOthers = Model.Promotions.FirstOrDefault().PromotionsInformation.Where(p => p.Title.ToLower() != "main");
+}
+
+
+
+@if (Model.Promotions != null)
+{
+    <div class="serives-agile py-5">
+        <div class="container py-xl-5 py-lg-3">
+            <div class="">
+                <h1 class="about-header margintop4">@Model.Promotions.FirstOrDefault().PromotionName</h1>
+            </div>
+            <div class="row no-mobile-margin">
+                <div class="col-md-6 mt-4 text-justify font-size-16 no-padding-left-mobile">
+                    <p>@Html.Raw(@Model.Promotions.FirstOrDefault().PromotionDescription)</p>
+
+                </div>
+                <div class="col-md-6 mt-4 no-padding-left-mobile">
+                    <a href="#">
+                        <div class=" no_margintop">
+                            <img src="~/@promoMain.ImagePath" alt="@Model.Promotions.FirstOrDefault().PromotionName" class="img-fluid" />
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="main col-md-12">
+
+                    <div class="padding-w3l">
+                        <h1>Promotion Price Table</h1>
+                        <div class="content row">
+
+
+                            @foreach (var item in promoOthers)
+                            {
+                            <div class="col-lg-4 col-md-6 col-sm-12 pr-4 home-effect no-pointer">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <img src="~/@item.ImagePath" alt="@item.Title" class="img-responsive full-width"/>
+                                </div>
+                                @switch(buttonIndex)
+                                {
+                                    case 1:
+                                        buttonClass = "color-red";
+                                        break;
+                                    case 2:
+                                        buttonClass = "color-green";
+                                        break;
+                                    case 3:
+                                        buttonClass = "color-blue";
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    
+                                    <div class="submit">
+                                        <form asp-action="Create" asp-controller="PromotionCustomers">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <input type="hidden" name="UserId" value="@userId" />
+                                            <input type="hidden" name="Price" value="@item.Price" />
+                                            <input type="hidden" name="PromotionDetail" value="@($"{Model.Promotions.FirstOrDefault().PromotionName} \n {item.Title}")" />
+                                            <input type="hidden" name="PromotionId" value="@item.PromotionId" />
+                                            <input type="hidden" name="CustomersWant" value='@($"{Model.Promotions.FirstOrDefault().PromotionName} {item.Title}")' />
+                                            <input type="submit" value="Subscribe" class="@buttonClass pointer sign-up popup-with-zoom-anim lato-important mt-4" />
+                                        </form>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="submit">
+                                        <a class="@buttonClass pointer mt-4 sign-up popup-with-zoom-anim lato-important" asp-action="Register" asp-controller="Account" asp-route-returnUrl="@Url.Action("Details", "CategoryForTabs", new { id = Model.CategoryId })">Sign Up</a>
+                                    </div>
+                                }
+                            </div>
+                                
+                                i++;
+                                buttonIndex++;
+                            }
+                            <div class="clear"> </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+}
+
+
+<!-- services -->

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<InfoMallWeb.Dtos.BannerInformationDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerContent)
+            </th>
+            <th>
+                Banner Image Url
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryForTabId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowBannerOnHome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraInformation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BannerContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowBannerOnHome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraInformation)
+            </td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.BannerId }) |
+				@Html.ActionLink("Details", "Details", new { id = item.BannerId }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.BannerId })
+			</td>
+        </tr>
+}
+    </tbody>
+</table>

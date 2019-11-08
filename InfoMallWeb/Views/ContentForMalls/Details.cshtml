@@ -1,0 +1,290 @@
+﻿@model InfoMallWeb.Dtos.ContentForMallDto
+
+
+@inject ICategoryForInfoRepository Categories
+@inject IContentForMallRepository Content
+
+@{
+    ViewData["Title"] = Model.Title;
+    List<ContentForMall> contentsTrending = new List<ContentForMall>();
+    List<ContentForMall> contentsRecent = new List<ContentForMall>();
+    var cats = await Categories.GetAllCategories(true);
+    var otherContents = await Categories.GetCategoryById(Model.CategoryId, true);
+    ViewData.AddActiveMainPage(MainNavBar.Blog);
+    ViewData["PageClass"] = "blog-banner";
+
+    var contents = await Content.GetAllContents();
+    contents = contents.Where(x => x.CategoryId == Model.CategoryId).ToList();
+    bool canMove = contents.Count() > 0;
+    int prev = 0;
+    int next = 0;
+    if (canMove)
+    {
+        var m = contents.IndexOf(contents.Where(x => x.ContentId == Model.ContentId).First());
+        prev = (m == 0) ? contents.Last().ContentId : contents.ElementAt(m - 1).ContentId;
+        next = (m == contents.Count() - 1) ? contents.ElementAt(0).ContentId : contents.ElementAt(m + 1).ContentId;
+    }
+
+}
+@section Link{
+    <link rel="stylesheet" href="~/css/post.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/blog.css" asp-append-version="true"/>
+}
+@section Article{
+    <article>
+        <section class="blog-banner-text">
+            <p>InfoMall Blog</p>
+        </section>
+    </article>
+}
+
+<!--Blog-->
+<!-- POST SECTION -->
+<section>
+    <div class="container-fluid">
+        <div class="row no-margin-left">
+            <div class="col-md-12 consistence spacing-elem no-consistence">
+
+                <div class="row no-margin">
+                    <!-- Right Column -->
+                    <div class="col-xl-8 pl-0 pr-0 col-md-12">
+                        <div class="col-12 pl-0 pr-2">
+                            <div id="first_row">
+                                <img src="~/@Model.Author.ImageUrl" alt="@Model.Author.Name">
+                                <div class="headings">
+                                    <p>@Model.CategoryForInformation.CategoryName | @Model.DatePosted.ToLongDateString()</p>
+                                    <h1>@Model.Title</h1>
+                                    <small class="a-span">@Model.Author.Name.ToUpper()</small>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-12 i-letter-spacing pl-0 pr-4-cus">
+                            @Html.Raw(Model.LongDescription)
+                        </div>
+                        <div class="col-12 p-0">
+                            <div id="social_link">
+                                <a href='@($"https://www.facebook.com/sharer/sharer.php?u=https://infomall.ng{Url.Action("Details", "ContentForMalls", new { id = Model.ContentId})}")' target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href='@($"https://twitter.com/intent/tweet?text={Model.ShortDescription}&url=https://infomall.ng{Url.Action("Details", "ContentForMalls", new { id = Model.ContentId})}")' target="_blank">
+                                    <i class="share-button fa fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        @*<div class="col-12 p-2">
+                    <hr style="outline: rgba(112, 112, 112, 0.4); margin: 9px 0;">
+                    <p class="head-intro">1 thought on “The Ultimate Guide to Effective Presentations”</p>
+                    <div id="after_links">
+                        <hr style="outline: rgba(112, 112, 112, 0.4); margin: 9px 0;">
+                        <img src="images/demo_img.png" alt="img">
+                        <div class="headings">
+                            <p>PETER OKEKE</p>
+                            <small>20th December 2016 at 8:46 am</small>
+                        </div>
+                        <br>
+                        <p class="small">Beautiful!<br> I ll be sure to make use of this in my coming presentation. thank you for this information.</p>
+                        <div class="lc">
+                            <span class="fa fa-heart"> 12 likes </span>
+                            <span class="fa fa-bell"> 0 Comments </span>
+                        </div>
+                        <hr style="outline: rgba(112, 112, 112, 0.4); margin: 9px 0;">
+                    </div>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="form">
+                        <form action="#" method="POST" name="form">
+                            <p>Leave a Reply</p>
+                            <p>Your email addrees will not be published. Required fields are marked *</p>
+                            <label for="comment">Comment</label><input type="text" name="comment"><br>
+                            <label for="name">Name *</label><input type="text" name="name"><br>
+                            <label for="email">Email *</label><input type="email" name="email">
+                            <p class="small"><input type="checkbox" name="save_email" class="bg-white">Save my name, email, and website in this browser for the next time I comment</p>
+                            <button type="submit" name="submit">Post Comment</button>
+                        </form>
+                    </div>
+                </div>*@
+                    </div>
+                    <!-- end Right Column -->
+                    <!-- Left Column -->
+                    <div class="col-xl-4 col-md-12">
+                        <div class="col-12 d-xl-block d-none p-0">
+                            <form action="#" method="POST">
+                                <input autocomplete="off" type="text" name="search" id="blog" placeholder="Search on InfoMall Blog">
+                                <div class="search-list">
+                                    <ul class="result-list">
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row p-0">
+                            <div class="col-xl-12 col-md-6 no-padding-m">
+                                <div id="blog_categories">
+                                    <hr style="outline: rgba(112, 112, 112, 0.1); margin: 9px 0;">
+                                    <p>Blog Categories</p>
+                                    <div class="blog_links_cat">
+                                        @foreach (var category in cats)
+                                        {
+                                            <a asp-action="Mall" asp-controller="CategoryForInfos" asp-route-id="@category.CategoryId">@category.CategoryName</a>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            @foreach (var content in otherContents.ContentsForInformation)
+                            {
+                                if (content.CategoryForInformationId == Model.CategoryId && content.NumberOfViews > 2)
+                                {
+                                    contentsTrending.Add(content);
+                                }
+                                if (content.CategoryForInformationId == Model.CategoryId && DateTime.Now - content.DatePosted <= TimeSpan.FromDays(2))
+                                {
+                                    contentsRecent.Add(content);
+                                }
+
+                            }
+
+                        @*<div class="col-md-12">
+                            @foreach (var content in contentsTrending)
+                                    {
+                            <div class="row mb-3 no-margin pl-0">
+                                <div class="col-md-4 col-sm-4 col-xl-4 pl-0">
+                                    <img src="~/@content.ImagePath" class="img-fluid" alt="@content.ImagePath">
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xl-8">
+                                    <a class="a-span text-dark" asp-controller="ContentForMalls" asp-action="Details" asp-route-id="@content.ContentId">
+                                        <p class="a-span text-dark">@content.Title</p>
+                                        <i class="fa fa-calendar"> <span class="a-span">@content.DatePosted.ToShortDateString()</span> </i>
+                                    
+                                        <i class="fa fa-eye"> <span class="a-span">@content.NumberOfViews</span> </i>
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+                                    }
+                        </div>
+
+                            <div class="col-xl-12 col-md-6 no-padding-m">
+                                <div id="popular_posts" class="no-padding-m">
+                                    <p>POPULAR POSTS</p>
+                                    <hr style="background-color: #FF4141; margin: 9px 0;">
+                                    @foreach (var content in contentsTrending)
+                                    {
+                                        <div class="row mb-3 no-margin pl-0">
+                                            <div class="col-md-3 col-sm-3 col-xl-3 pl-0 popular_posts_post ">
+                                                <img src="~/@content.ImagePath" alt="@content.ImagePath">
+                                            </div>
+                                            <div class="col-md-9 col-sm-9 col-xl-9 popular_posts_post_details">
+                                                <a class="a-span text-dark" asp-controller="ContentForMalls" asp-action="Details" asp-route-id="@content.ContentId">
+                                                    <p class="a-span text-dark">@content.Title</p>
+                                                    <i class="fa fa-calendar"> <span class="a-span">@content.DatePosted.ToShortDateString()</span> </i>
+                                                   
+                                                    <i class="fa fa-eye"> <span class="a-span">@content.NumberOfViews</span> </i>
+                                                </a>
+                                                
+                                            </div>
+                                            
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>*@
+                            <div class="col-xl-12 col-md-6 no-padding-m">
+                                <div id="latest_posts">
+                                    <p>LATEST POSTS</p>
+                                    <hr style="background-color: #FF4141; margin: 9px 0; margin-bottom: 21px; display: block;">
+                                </div>
+                                <div class="row">
+                                    @foreach (var content in contentsRecent)
+                                    {
+                                        <div class="col-xl-12 col-md-6">
+                                            <a asp-controller="ContentForMalls" asp-action="Details" asp-route-id="@content.ContentId">
+                                                <div class="blog_container">
+                                                    <h4 class="badge">@content.Category.CategoryName</h4>
+                                                    <img src="~/@content.ImagePath" alt="blog_img" class="img-fluid">
+                                                    <div class="blog-details">
+                                                        <h1>@Model.Title</h1>
+                                                        <small class="a-span">@content.Author.Name</small>
+                                                        <div class="ccvi">
+                                                            <i class="fa fa-calendar"> <span class="a-span">@content.DatePosted.ToShortDateString()</span></i>
+                                                            @*<i class="fa fa-comment">@content.NumberOfViews</i>*@
+                                                            <i class="fa fa-eye"> <span class="a-span">@content.NumberOfViews</span></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- end Left Column -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- end POST SECTIOIN -->
+<!-- Navigation arrow -->
+@if (canMove)
+{
+<div class="navigation_arrow">
+    <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@prev" id="previous">&lt;</a>
+    <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@next" id="next">&gt;</a>
+</div>
+}
+@(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+<!-- end navigation arrow -->
+<!--End blog-->
+
+@section Scripts{
+    <script>
+        const blog = document.querySelector('#blog');
+
+
+        blog.addEventListener('keyup', async (e) => {
+            console.log(e.target.value);
+            await autoComplete(blog.value, '.result-list', blog).catch(err => console.log(err))
+        });
+        const autoComplete = async (loc, querySelect, queryInputField) => {
+            const resultList = document.querySelector(querySelect);
+            let input = loc
+            if (input && input.length >= 3) {
+                const base = "/ContentForMalls/Search";
+                const query = `?message=${input}`;
+
+                const response = await fetch(base + query);
+                console.log(response);
+                const data = await response.json();
+                console.log(data)
+
+
+                resultList.innerHTML = "";
+                // console.log(data.locations[0].city.name);
+                data.forEach(element => {
+                    const city = element.title;
+                    let listData = document.createElement("li");
+                    let aer = document.createElement("a");
+                    aer.setAttribute('href', `/ContentForMalls/Details/${element.id}`)
+                    aer.textContent = city;
+                    listData.appendChild(aer)
+                    resultList.appendChild(listData);
+                    resultList.classList.remove('d-none');
+
+                });
+            }
+            else {
+                resultList.innerHTML = "";
+            }
+
+            // return data[0];
+        }
+
+    </script>
+}

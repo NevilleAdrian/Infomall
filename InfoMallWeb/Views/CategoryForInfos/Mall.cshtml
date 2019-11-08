@@ -1,0 +1,117 @@
+﻿@model IEnumerable<InfoMallWeb.Models.CategoryForInformation>
+
+@{
+    ViewData["Title"] = "InfoMall Blog Posts";
+    int i = 1;
+    List<ContentForMall> contentsTrending = new List<ContentForMall>();
+    List<ContentForMall> contentsRecent = new List<ContentForMall>();
+    List<ContentForMall> otherNews = new List<ContentForMall>();
+    ViewData.AddActiveMainPage(MainNavBar.Blog);
+    ViewData["PageClass"] = "blog-banner";
+}
+@section Link{
+    <link rel="stylesheet" href="~/css/blog.css" asp-append-version="true"/>
+}
+@section Article{
+    <!-- heading -->
+    <article>
+        <section class="blog-banner-text">
+            <p>InfoMall Blog</p>
+        </section>
+    </article>
+    <!--  -->
+
+}
+
+<!--Blog all-->
+<section>
+    <div class="container-fluid">
+        <div class="row no-margin-left">
+            <div class="col-md-12 consistence spacing-elem no-consistence">
+                <div class="row p-2">
+                    <!-- top property -->
+                    <div class="col-12 px-0">
+                        <div class="top_property">
+                            <p>@(Model.Count() > 1 ? "All" : Model.First().CategoryName) Blog Posts</p>
+                            <select id="cats" asp-items="@ViewBag.Categories">
+                                <option> -- Select Category -- </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- end top property -->
+                    <!-- blogs RW1 -->
+                    @if (Model.Count() > 1)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            foreach (var content in item.ContentsForInformation.Take(3))
+                            {
+                                <div class="col-sm-12 col-md-6 col-xl-4 px-2">
+                                    <a asp-controller="ContentForMalls" asp-action="Details" asp-route-id="@content.ContentId">
+                                        <div class="blog_container">
+                                            <h4 class="badge">@item.CategoryName</h4>
+                                            <img src="~/@content.ImagePath" alt="@content.Title" class="img-fluid">
+                                            <div class="blog-details">
+                                                <p class="blogpost-category">@item.CategoryName</p>
+                                                <h1>@content.Title</h1>
+                                                <small class="a-span">@content.Author.Name</small>
+                                                <div class="ccvi">
+                                                    <i class="fa fa-calendar"> <span class="a-span">@content.DatePosted.ToShortDateString()</span></i>
+                                                    @*<i class="fa fa-comment">@content.NumberOfViews</i>*@
+                                                    <i class="fa fa-eye"> <span class="a-span">@content.NumberOfViews</span></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var content in Model.First().ContentsForInformation)
+                        {
+                            <div class="col-sm-12 col-md-6 col-xl-4 px-2">
+                                <a asp-controller="ContentForMalls" asp-action="Details" asp-route-id="@content.ContentId">
+                                    <div class="blog_container">
+                                        <h4 class="badge">@Model.First().CategoryName</h4>
+                                        <img src="~/@content.ImagePath" alt="@content.Title" class="img-fluid">
+                                        <div class="blog-details">
+                                            <h1>@content.Title</h1>
+                                            <small class="a-span">@content.Author.Name</small>
+                                            <div class="ccvi">
+                                                <i class="fa fa-calendar"> <span class="a-span">@content.DatePosted.ToShortDateString()</span></i>
+                                                @*<i class="fa fa-comment">@content.NumberOfViews</i>*@
+                                                <i class="fa fa-eye"> <span class="a-span">@content.NumberOfViews</span></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                        }
+                    }
+
+                    <!-- // -->
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--End blog-->
+<!-- single -->
+@(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+<!-- //single -->
+@section Scripts{
+    <script>
+        let changer = document.getElementById('cats');
+        changer.addEventListener('change', (e) => {
+            window.location.href = `/CategoryForInfos/Mall/${e.target.value}`
+        })
+    </script>
+}

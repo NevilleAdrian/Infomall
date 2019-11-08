@@ -1,0 +1,237 @@
+﻿@model InfoMallWeb.Dtos.HomePageDto
+@inject IContentForTabRepository Contents
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    ViewData.AddActiveMainPage(MainNavBar.Index);
+    ViewData["Title"] = "InfoMall Nigeria Limited. Purpose Beyond Profit!";
+    List<BannerInformation> backGroundUrls = new List<BannerInformation>();
+    List<ContentForTab> contents = new List<ContentForTab>();
+    int take = 5;
+    ViewData["PageClass"] = "banner";
+    var conts = await Contents.GetAllContents(true);
+    var sd = conts.Where(c => c.Title.Equals("Web Development", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+}
+
+
+<div id="clients" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <div class="carousel-inner">
+        @if (Model.Clienteles.Count() > 0)
+        {
+            //Grabbing clientele
+            <div id="clients" class="carousel slide" data-ride="carousel" data-interval="6000">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Clienteles.Count(); i += 5)
+                    {
+                        <div class="carousel-item @(i == 0 ? "active":"")">
+                            @foreach (var clientele in Model.Clienteles.Skip(i).Take(take))
+                            {
+                                <img src="~/@clientele.OldImage" class="d-inline-block img-fluid" alt="clientele">
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+@if (Model != null)
+{
+    @if (Model.TabCategories.Count() > 0)
+    {
+        foreach (var category in Model.TabCategories)
+        {
+            if (category.ContentForTabs.Where(c => c.ShowOnHome).Count() > 0)
+            {
+                @foreach (var content in category.ContentForTabs.Where(c => c.ShowOnHome))
+                {
+                    contents.Add(content);
+                }
+            }
+        }
+    }
+    //Using contents
+    //First instance about us
+    var aboutUs = contents.Where(c => c.Category.CategoryName.ToLower() == "about us" && c.Title.ToLower() == "our goal").SingleOrDefault();
+    if (aboutUs != null)
+    {
+        <section>
+            <div class="container-fluid">
+                <div class="row no-margin-left responsive-1">
+                    <div class="col-md-6 custom-padding-top consistence no-padding-right no-consistence">
+                        <p class="note-1 mt-4">@Html.Raw(aboutUs.ShortDescription)</p>
+                    </div>
+                    <div class="col-6 mobile-display-2">
+                        <img src="~/images/PICTURE-1.png" id="image-1" class="resize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 s-m-only">
+                <p class="text-center mt-4">@Html.Raw(aboutUs.ShortDescription)</p>
+            </div>
+        </section>
+
+        @section Article{
+            <article>
+                <section class="banner-text">
+                    <p>Purpose Beyond Profit</p>
+                    <p><span>Every project is a <br> great </span> <span>opportunity <br> to serve</span></p>
+                    <p>
+                        <a asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@aboutUs.CategoryForTabId">
+                            Learn more
+                        </a>
+                    </p>
+                </section>
+            </article>
+        }
+    }
+
+    //Grabbing products from content
+    var products = contents.Where(c => c.Category.CategoryName.ToLower() == "products");
+    @if (products != null)
+    {
+        <!-- this section contains infomall's work -->
+        <section>
+            <div class="container-fluid our-work">
+                <div class="consistence spacing-elem no-consistence">
+                    <div class="responsive-2">
+                        <h6 class="heading-1 spacing-header">Explore Our Works</h6>
+                        @*<p class="para-1">For every sucessful Tech Company there exists a culture of excellent customer experience, a functional feedback channel and the right mis of trusted creatives.</p>
+                            <p class="para-1-mobile">For every sucessful Tech Company there exists a culture of excellent customer experience, a functional feedback channel and the right mis of trusted creatives.</p>*@
+                    </div>
+                    @{ int catId = 0;}
+                    <div class="row responsive-3">
+                        @foreach (var product in products.Where(p => p.ShowOnHome).Take(3))
+                        {
+                            catId = product.CategoryForTabId;
+                            <div class="col-4 works">
+                                <a asp-action="Details" asp-controller="ContentForTabs" asp-route-id="@product.ContentId">
+                                    <img src="~/@product.ImagePath" alt="@product.Title" class="group-images">
+                                    <h5 class="works-caption">@product.Title</h5>
+                                </a>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+
+    }
+
+    @if (sd != null)
+    {
+        <section>
+            <div class="container-fluid our-work">
+                <div class="consistence spacing-elem no-consistence">
+                    <div class="row responsive-3">
+                        @foreach (var item in sd.ContentImages)
+                        {
+                            <div class="col-md-4 col-sm-6 col-xs-6 works work-s-m">
+                                <img src="~/@item.CarImagePath" alt="@item.Description" class="about-icon">
+                                <h3 class="works-caption mt-3">@item.Description</h3>
+                                <p>@Html.Raw(item.ExtraData)</p>
+
+                            </div>
+                        }
+                        @*<p class="servicess col-md-12">
+                            <a asp-action="Details" asp-controller="CategoryForTabs" asp-route-id="@sd.CategoryId">
+                                Get to know more
+                            </a>
+                        </p>*@
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+        
+    }
+
+    @(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+    var malls = Model.InfoCategories;
+    List<ContentForMall> contentForMalls = new List<ContentForMall>();
+    foreach (var mall in malls)
+    {
+        if (mall.ContentsForInformation.Where(c => c.ShowOnHome) != null && mall.ContentsForInformation.Where(c => c.ShowOnHome).Count() > 0)
+        {
+            foreach (var info in mall.ContentsForInformation.Where(c => c.ShowOnHome))
+            {
+                contentForMalls.Add(info);
+            }
+        }
+
+    }
+    if (contentForMalls.Count > 0)
+    {
+        <div class="container-fluid our-work">
+            <div class="consistence spacing-elem no-consistence">
+                <div>
+                    <h6 class="heading-1 spacing-header">Blog Mall</h6>
+                </div>
+                <div class="row blogpost-space">
+                    @foreach (var info in contentForMalls.Take(3))
+                    {
+                        <div class="col-md-4 works">
+                            <div class="thumbnail">
+                                <a asp-action="Details" asp-controller="ContentForMalls" asp-route-id="@info.ContentId">
+                                    <img src="~/@info.ImagePath" alt="@info.Title" class="img-fluid" />
+                                    <div class="caption">
+                                        <p class="blogpost-category">@info.Category.CategoryName</p>
+                                        <h2 class="blog-post-topic">@info.Title</h2>
+                                        <h2 class="blog-post-topic-mobile">@info.ShortDescription</h2>
+                                        <small class="a-span">@info.Author.Name</small>
+                                        <div class="ccvi">
+                                            <i class="fa fa-calendar"> <span class="a-span">@info.DatePosted.ToShortDateString()</span></i>
+                                            @*<i class="fa fa-comment">@content.NumberOfViews</i>*@
+                                            <i class="fa fa-eye"> <span class="a-span">@info.NumberOfViews</span></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+
+                    }
+                </div>
+            </div>
+
+        </div>
+
+
+    }
+
+
+
+
+}
+
+
+
+
+@section Scripts{
+    <!--banner-slider-->
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                var scroll = $(window).scrollTop();
+                if (scroll > 100) {
+                    $(".navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top").removeClass("dark-overlay");
+                }
+
+                else {
+                    $(".navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top").addClass("dark-overlay");
+                }
+            });
+        });
+    </script>
+    <!-- //banner-slider -->
+}
+
+
+

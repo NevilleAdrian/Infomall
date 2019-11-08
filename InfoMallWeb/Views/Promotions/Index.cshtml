@@ -1,0 +1,70 @@
+﻿@model IEnumerable<InfoMallWeb.Dtos.PromotionDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionExtra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromotionAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OldImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryForTabId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionExtra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromotionAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryForTabId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PromotionId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PromotionId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

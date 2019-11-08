@@ -1,0 +1,119 @@
+﻿@model InfoMallWeb.Dtos.ContentForTabDto
+@inject  IContentForTabRepository Content
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["PageClass"] = "products-banner";
+    ViewData.AddActiveMainPage(MainNavBar.Products);
+    var images = Model.ContentImages;
+
+    var contents = await Content.GetAllContents(false);
+    contents = contents.Where(x => x.CategoryForTab.CategoryName == "Products").ToList();
+    var m = contents.IndexOf(contents.Where(x => x.ContentId == Model.ContentId).First());
+    int prev = (m == 0) ? contents.Last().ContentId : contents.ElementAt(m - 1).ContentId;
+    int next = (m == contents.Count() - 1) ? contents.ElementAt(0).ContentId : contents.ElementAt(m + 1).ContentId;
+}
+@section UpLink{
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true">
+}
+@section Article {
+    <article>
+        <section class="products-banner-text">
+            <p>@Model.Title</p>
+        </section>
+    </article>
+}
+<!-- services -->
+<section class="i-h-4">
+    <div class="container-fluid">
+        <div class="row no-margin-left">
+            <div class="col-md-12 consistence spacing-elem no-consistence">
+                <div class="row about-product">
+                    <div class="col-md-7">
+                        <h4 class="product-name">@Model.Title</h4>
+                        <p class="p p-desktop i-font-size">
+                            @Html.Raw(Model.LongDescription)
+                        </p>
+                        <!-- this shows only on mobile devices -->
+                        <p class="p-mobile i-font-size">
+                            @Html.Raw(Model.LongDescription).
+                        </p>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <h6 class="services">Services:</h6>
+                        <p class="p i-font-size">
+                            @Html.Raw(Model.ShortDescription)
+                        </p>
+                    </div>
+                </div>
+                <p><hr class="product-hr"></p>
+                @if (images.Count() >= 3)
+                {
+                    <div class="task-div">
+                        <h4 class="product-name">Task</h4>
+                        <p class="p i-font-size">
+                            @Html.Raw(images.ElementAt(0)?.Description)
+                        </p>
+                    </div>
+
+                    <div class="row boxes-parent">
+                        <img src="~/@images.ElementAt(0)?.CarImagePath" class="img-fluid" alt="@Model.Title desc" />
+                    </div>
+
+                    <div>
+                        <p class="p i-font-size">
+                            @Html.Raw(images.ElementAt(1)?.Description)
+                        </p>
+                    </div>
+                    @foreach (var item in images.Skip(1).Take(2))
+                    {
+                        <div class="row boxes-parent desktop-dis">
+                            <img src="~/@item?.CarImagePath" class="img-fluid" alt="@Model.Title desc" />
+                        </div>
+                    }
+                    @foreach (var item in images.Skip(3).Take(2))
+                    {
+                        <div class="row boxes-parent mobile-dis">
+                            <img src="~/@item?.CarImagePath" class="img-fluid" alt="@Model.Title desc" />
+                        </div>
+                    }
+                    <div class="task-div">
+                        <p class="p i-font-size">
+                            @Html.Raw(images.ElementAt(2)?.Description)
+                        </p>
+                    </div>
+                    <div class="row boxes-parent">
+                        @foreach (var item in images.Skip(5).Take(2))
+                        {
+                            <div class="col-md-6">
+                                <img src="~/@item?.CarImagePath" class="img-fluid" alt="@Model.Title desc" />
+                            </div>
+                        }
+
+                    </div>
+                }
+
+
+                <div class="row bottom-text">
+                    <div class="icon-one col-4">
+                        <a asp-action="Details" asp-controller="ContentForTabs" asp-route-id="@prev"><img class="img-fluid" src="~/images/previous-icon.svg" alt="Previous Button"></a>
+                    </div>
+                    <div class="share-it col-4">
+                        <p class="text i-font-size p">
+                            LOVE IT? SHARE IT!
+                        </p>
+                        <a href='@($"https://twitter.com/intent/tweet?text={Model.ShortDescription}&url=https://infomall.ng{Url.Action("Details", "ContentForTabs", new { id = Model.ContentId})}")' target="_blank"><img class="img-fluid social-media-icons" src="~/images/twitter-logo.svg" alt="Twitter Icon"></a>
+                        <a href='@($"https://www.facebook.com/sharer/sharer.php?u=https://infomall.ng{Url.Action("Details", "ContentForTabs", new { id = Model.ContentId})}")' target="_blank"><img class="img-fluid social-media-icons" src="~/images/facebook-logo.svg" alt="Facebook Icon"></a>
+                    </div>
+                    <div class="icon-two col-4">
+                        <a asp-action="Details" asp-controller="ContentForTabs" asp-route-id="@next"><img class="img-fluid" src="~/images/next-icon.svg" alt="Next Button"></a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+@(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))

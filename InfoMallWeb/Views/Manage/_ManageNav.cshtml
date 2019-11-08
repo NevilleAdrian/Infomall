@@ -1,0 +1,22 @@
+﻿@using InfoMallWeb.Views.Manage
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<nav class="nav flex-column nav-pills mb-5">
+    <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" asp-action="Index" asp-controller="Manage">Profile</a>
+    @*<a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" asp-action="ChangePassword" asp-controller="Manage">Password</a>*@
+    @if (hasExternalLogins)
+    {
+        <a class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-action="ExternalLogins" asp-controller="Manage">External logins</a>
+    }
+    @*<a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" asp-action="TwoFactorAuthentication" asp-controller="Manage">Two-factor authentication</a>*@
+    <a class="nav-link @ManageNavPages.MyPromotionNavClass(ViewContext)" asp-action="Details" asp-controller="PromotionCustomers">My Promotions</a>
+    <a class="nav-link @ManageNavPages.MyProductNavClass(ViewContext)" asp-action="Details" asp-controller="CustomerProducts">My Products</a>
+    <form asp-action="Logout" asp-controller="Account">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input class="nav-link pointer mt-2 nice-button" value="Logout" type="submit"/>
+    </form>
+</nav>
+

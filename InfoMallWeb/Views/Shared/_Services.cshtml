@@ -1,0 +1,107 @@
+﻿@model InfoMallWeb.Models.CategoryForTab
+@inject SignInManager<ApplicationUser> SignInManager
+
+
+<div class="container-fluid">
+    <div class="row no-margin-left">
+        <div class="col-md-12 consistence spacing-elem no-consistence desktop-services">
+        </div>
+    </div>
+</div>
+@if (Model.ContentForTabs.Count() > 0)
+{
+<section class="i-h-4">
+    @{int i = 1;}
+        <div class="container-fluid">
+            <div class="row no-margin-left">
+                <div class="col-md-12 consistence spacing-elem no-consistence desktop-services">
+                    <div class="row first-row ">
+                        @foreach (var item in Model.ContentForTabs.Take(3))
+                        {
+                            <div class="col-md-6 pb-3">
+                                <div class="thumbnail">
+                                    <img src="~/@item.ImagePath" alt="@item.Title" class="img-fluid">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pt-2 pb-3">
+                                <div class="thumbnail">
+                                    <div class="caption-about py-0">
+                                        <h3> @item.Title </h3>
+                                        <p class="i-font-size i-letter-spacing">@item.LongDescription</p>
+                                    </div>
+                                </div>
+                            </div>
+                             i++;
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    @{int v = 1;}
+    @foreach (var item in Model.ContentForTabs.Take(3))
+    {
+
+        @if ((v % 2) != 0)
+            {
+                <div class="container-fluid">
+                    <div class="row pt-2 no-margin-left">
+                        <div class="col-md-12 consistence spacing-elem no-consistence mobile-services">
+                            <div class="row first-row service-child">
+                                <div class="col-md-6">
+                                    <div class="thumbnail">
+                                        <img src="~/@item.ImagePath" alt="@item.Title" class="img-fluid">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="thumbnail">
+                                        <div class="caption-about py-0 pl-c-4">
+                                            <h3> @item.Title</h3>
+                                            <p class="i-font-size-s">@item.LongDescription</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="row i-s-color-2 mb-4 pb-0 no-margin service-child mobile-services">
+                    <div class="container-fluid pr-0 pb-0">
+                        <div class="row no-margin-left pb-0">
+                            <div class="col-md-6 consistence pb-0 i-p-r-2 no-consistence mobile-services">
+                                <div class="thumbnail">
+                                    <div class="caption-about py-0">
+                                        <h3 class="i-c-p"> @item.Title </h3>
+                                        <p class="i-font-size-s pr-c-4">@item.LongDescription</p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6 pb-0 pr-0">
+                                <div class="thumbnail">
+                                    <img src="~/@item.ImagePath" alt="@item.Title" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                    
+                </div>
+
+            }
+        v++;
+
+    }
+</section>
+    <!-- subscribe -->
+    @(await Html.PartialAsync("~/Views/Shared/_ContactDest.cshtml"))
+}
+

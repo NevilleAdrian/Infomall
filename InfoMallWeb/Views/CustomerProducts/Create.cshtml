@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model InfoMallWeb.Dtos.CustumerProductDto
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@{
+    string userId = null;
+    int i = 1;
+    if (SignInManager.IsSignedIn(User))
+    {
+
+        ApplicationUser user = await UserManager.GetUserAsync(User);
+        userId = user.Id;
+    }
+}
+
+<!-- //contact info -->
+<div class="serives-agile py-5">
+    <div class="">
+        <h1 class="about-header mt-4 text-center">Request Form</h1>
+    </div>
+    <div class="container py-xl-5 py-lg-3">
+        <div class="col-md-12 main_grid_contact bg-light">
+
+            <!-- -->
+            <div class="form form_contact">
+
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="UserId" value="@userId" />
+                    <input type="hidden" asp-for="Price" value="0" />
+                    <div class="form-group" id="service">
+                        <label asp-for="Service" class="control-label">Please choose a service</label>
+                        <div class="styled-select slate">
+                            <select asp-for="Service" class="form-control" asp-items="ViewBag.Category"></select>
+                            <span asp-validation-for="Service" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CustomerDecription" class="mb-2 control-label">Message</label>
+                        <textarea asp-for="CustomerDecription" class="form-control"></textarea>
+                        <span asp-validation-for="CustomerDecription" class="text-danger"></span>
+                    </div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="submit">
+                            <a class=" sign-up popup-with-zoom-anim" asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Url.Action("Create", "CustomerProducts")">Submit</a>
+                        </div>
+                    }
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //contact -->
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
