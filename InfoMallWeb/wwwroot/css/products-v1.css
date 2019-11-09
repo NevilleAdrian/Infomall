@@ -1,0 +1,278 @@
+/* Products and Sevices Stylesheet */
+
+.task{
+    font-family: 'Playfair Display', serif;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    font-size: 31px;
+}
+
+.product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 31px;
+}
+
+.services {
+    font-family: 'Avenir', sans-serif;
+    font-size: 25px;
+}
+
+.p {
+    font-family: 'Avenir', sans-serif;
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+.main-container {
+    max-width: 71.89999%;
+    margin-top: 143px;
+}
+
+hr.product-hr {
+    background-color: rgb(128,128,128,0.5);
+    padding: 0.35px;
+}
+
+.about-product {
+    margin-bottom: 90px;
+    padding-left: 15px;
+}
+
+/* .about-productt {
+    margin-bottom: 90px;
+    padding-left: 20px;
+} */
+
+.services-div {
+    margin-left: 21.99999%;
+}
+
+.task-div{
+    margin-top: 90px;
+    margin-bottom: 90px;
+}
+
+/* Applicable to only Food Trolley */
+.big-box {
+    height: 750px;
+    border: 1px solid black;
+    max-width: 100%;
+    margin-bottom: 90px;
+}
+
+.big-box + div {
+    margin-bottom: 44px;
+}
+
+/* Applicable to PrimeMed and StudyMate only */
+.long-box{
+    height: 1340px;
+    border: 1px solid black;
+    max-width: 100%;
+    margin-bottom: 90px;
+}
+
+.bottom-box {
+    height: 642px;
+    border: 1px solid black;
+    max-width: 100%;
+    margin-bottom: 90px;
+}
+
+/* Applicable to SeamMe and WhichSchool only */
+.top-long-box {
+    height: 420px;
+    border: 1px solid black;
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+
+.bottom-long-box {
+    height: 2183px;
+    border: 1px solid black;
+    max-width: 100%;
+    margin-bottom: 90px;
+}
+
+/* Applicable to all Products/Services */
+.boxes-parent {
+    margin: 0;
+}
+
+.boxes-parent img{
+    margin-bottom: 10px;
+}
+
+.mobile-dis{
+    display: none;
+}
+
+.box-one {
+    height: 513px;
+    border: 1px solid black;
+    margin-right: 31px;
+    flex-basis: 48.666667%;
+    max-width: 48.666667%;
+}
+
+.box-two {
+    height: 513px;
+    border: 1px solid black;
+    flex-basis: 47.555556%; 
+    max-width: 47.555556%;
+}
+
+.bottom-text {
+    margin-top: 115px; 
+}
+
+.share-it {
+    text-align: center;
+    padding:0 23px;
+}
+
+.icon-two {
+   text-align: right;
+}
+
+.social-media-icons {
+    padding: 0px 17px;
+}
+
+
+.p-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1920px) {
+    .main-container {
+        margin-top: 90px;
+    }
+
+    .services-div {
+        margin-left: 15%;
+    }
+
+    .product-name, .task {
+        font-family: 'Playfair Display', serif;
+        font-size: 21px;
+    }
+    
+    .services {
+        font-family: 'Avenir', sans-serif;
+        font-size: 16px;
+    }
+    
+    .p {
+        font-family: 'Avenir', sans-serif;
+        font-size: 18px;
+    }
+    
+    hr{
+        background-color: rgb(128,128,128,0.5);
+        padding: 0.35px;
+    }
+}
+
+
+/* this style is for the mobile view of primemed, food trolley,seamme, whichschool */
+@media screen and (max-width:599px){
+    .container {
+        max-width: 350px;
+    }
+
+    .desktop-dis{
+        display: none;
+    }
+
+    .mobile-dis {
+        display: block;
+    }
+
+    /* primemed page, studymate page */
+    .p-desktop {
+        display: none;
+    }
+
+    .p-mobile {
+        display: block;
+    }
+
+    .services-div {
+        margin-left: 0%;
+        padding-top: 20px;
+    }
+
+    .main-container {
+        margin-top: 50px;
+    }
+
+    .task-div {
+        margin: 10px 0px;
+    }
+
+    .p {
+        font-size: 15px;
+    }
+    .product-hr {
+        display: none;
+    }
+
+    /* .task-div {
+        display: none;
+    } */
+
+
+    .icon-one img, .icon-two img{
+        max-width: 100%;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .col-2.icon-one, .col-2.icon-two{
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+
+}
+
+@media screen and (max-width:999px) and (min-width:600px) {
+    .container {
+        max-width: 700px;
+    }
+    /* primemed page */
+    .p-desktop {
+        display: none;
+    }
+
+    .p-mobile {
+        display: block;
+    }
+    
+
+    .services-div {
+        margin-left: 0px;
+        padding-top: 20px;
+    }
+
+    .p {
+        font-size: 15px;
+    }
+
+    .box-one {
+        margin-right: 10px;
+    }
+}
+
+
+@media screen and (max-width:1299px) and (min-width:1000px) {
+    .container {
+        max-width: 900px;
+    }
+
+    .about-product {
+        padding-left: 0px;
+    }
+
+
+}
+

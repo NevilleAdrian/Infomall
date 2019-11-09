@@ -1,0 +1,85 @@
+/************************************************************ FOOTER */
+footer {
+    overflow-x: hidden;
+    height: auto;
+    background-color: #4E4E4E;
+    padding: 0 180px;
+    float: left;
+    width: 100%;
+    font-size: 15px;
+}
+footer #img_container img {width: 100px;}
+footer a {
+    color: white;
+    display: block;
+    text-decoration: none;
+    margin: 2px;
+}
+footer a:hover {color: white; text-decoration: none;}
+footer p {color: white;}
+footer #subscribe {margin-left: -65px;}
+footer #subscribe {margin-left: -35px;}
+
+footer form input {
+    width: 148%;
+    border: 1px solid #A2A2A2;
+    background-color: #4E4E4E;
+    color: white;
+    padding: 10px;
+    outline: none;
+    font-size: 11px;
+    margin: 5px 0;
+}
+footer button {
+    font-size: 13px;
+    background-color: #52C9FE;
+    padding: 10px;
+    border: none;
+    outline: none;
+    color: white;
+}
+footer #links_2 {margin-left: -80px;}
+
+/* screen quries */
+@media screen and (max-width: 1200px){
+    footer #links_2 {margin-left: 0px;}
+    footer #subscribe {margin-left: 0px;}
+}
+@media screen and (max-width: 1070px){
+    footer {padding: 0 100px;}
+    footer #subscribe {padding-left: 80px;}
+}
+@media screen and (max-width: 767px){
+    footer {padding: 0 45px;}
+    footer #img_container img {width: 120px;}
+    footer a {padding: 3px 0;}
+
+    footer #links_1,
+    footer #links_2 {margin-top: 30px; font-size: 16px;}
+
+    footer #links_2 {margin-left: 100px;}
+
+    footer #links_1 a,
+    footer #links_2 a {width: 100px;}
+
+    footer #subscribe {padding-left: 15px;}
+    footer #subscribe {margin-top: 50px;}
+    footer #subscribe input {width: 100%;}
+}
+@media screen and (max-width: 440px){footer {padding: 0 30px;}}
+/* // */
+
+.footer_bottom {
+    color: white; 
+    padding: 15px 0;
+    margin-top: 30px;
+}
+.footer_bottom span {
+    font-size: 11px;
+}
+.footer_bottom .fa {
+    font-size: 17px;
+    margin: 0 5px;
+}
+@media screen and (max-width: 440px){.footer_bottom .fa {font-size: 16px; margin: 2px;}}
+/************************************************************ end FOOTRER */

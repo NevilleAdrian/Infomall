@@ -1,0 +1,131 @@
+/* please there are some project styles for different media querries on the main style.css, sorry for the inconvienence  */
+
+
+.project-note {
+    padding-top: 15px;
+}
+
+.project-form {
+    padding-bottom: 150px;
+}
+
+.project-form-1 {
+    padding: 15px 0px 15px 5px;
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+.project-form-1:focus {
+    outline: none;
+}
+
+.project-form-2:focus {
+    outline: none;
+}
+
+.project-form-2 {
+    padding: 15px 0px 400px 5px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#project-button {
+    background-color: #4BC8FF;
+    color: white;
+    border: none;
+    padding: 18px 70px 18px 70px;
+    font-size: 20px;
+    float: left;
+}
+
+@media (max-width: 1700px) {
+    .project-note, .project-container{
+        padding: 0 9% 0 13%;
+    }
+}
+
+@media (max-width: 1050px) {
+    .project-note, .project-container {
+        padding: 1em 1.5em;
+    }
+}
+
+/* @media (max-width: 991px) {
+    .project-note, .project-container {
+        padding: 0px 15px ;
+    }
+} */
+
+@media (min-width: 500px) {
+    .project-note, .project-container {
+        padding-left: 3%;
+        padding-right: 2%;
+    }
+}
+
+@media (min-width: 700px) {
+    .project-note, .project-container {
+        padding-left: 5%;
+        padding-right: 3%;
+    }
+}
+
+@media(max-width: 1150px) and (min-width: 1053px) {
+    .project-note, .project-container {
+        padding: 1em 6%;   
+    }
+}
+
+@media(max-width: 1300px) and (min-width: 1151px) {
+    .project-note, .project-container {
+        padding: 1em 6%;    
+    }
+}
+
+@media(max-width: 1500px) and (min-width: 1301px) {
+    .project-note, .project-container{
+        padding: 1em 9% 1em 12.5%;   
+    }
+}
+
+@media(max-width: 1659px) and (min-width: 1501px) {
+    .project-note, .project-container {
+        padding: 1em 9% 1em 12.5%;  
+    }
+}
+
+@media (min-width: 1660px) {
+    .project-note, .project-container {
+        padding: 1em 9.5% 1em 13%;
+    }
+}
+
+@media (min-width: 1920px) {
+    .project-note, .project-container {
+        padding: 1em 9.5% 1.2em 14%;
+    }
+}
+
+@media (min-width: 2100px) {
+    .project-note, .project-container {
+        padding: 1.5em 9.5% 1.5em 14%;
+    }
+}
+
+@media (min-width: 2250px) {
+    .project-note, .project-container {
+        padding: 1.5em 9.5% 2em 14%;
+    }
+}
+
+@media (min-width: 2700px) {
+    .project-note, .project-container {
+        padding: 1.5em 9.5% 2em 14%;
+    }
+}
+
+
+
+
+

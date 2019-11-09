@@ -1,0 +1,756 @@
+﻿/* Header Stylesheet */
+
+body {
+    padding: 0;
+    margin: 0;
+    background: #FFF;
+}
+
+    body a {
+        transition: 0.5s all;
+        -webkit-transition: 0.5s all;
+        -moz-transition: 0.5s all;
+        -o-transition: 0.5s all;
+        -ms-transition: 0.5s all;
+        text-decoration: none;
+    }
+
+        body a:hover {
+            text-decoration: none;
+            transition: 0.5s all;
+            -webkit-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -ms-transition: 0.5s all;
+        }
+
+        body a:focus,
+        a:hover {
+            text-decoration: none;
+        }
+
+a:focus,
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+.banner {
+    background-image: url("../images/homepage_banner.jpg");
+    height: 86vh;
+}
+
+.products-banner {
+    background-image: url("../images/products_banner.jpg");
+    height: 60vh;
+}
+
+.services-banner {
+    background-image: url("../images/services_banner.jpg");
+    height: 60vh;
+}
+
+/* Blog banner */
+.blog-banner {
+    background-image: url("../images/blog_h.png");
+    height: 210px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.blog-banner .overlay {
+    position: absolute;
+    height: 210px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(11, 0, 0, 0.62);
+}
+/* end blog banner */
+
+.about-banner {
+    background-image: url("../images/about_banner.jpg");
+    height: 60vh;
+}
+/* Blog Banner */
+
+/* end Blog Banner */
+.banner, .products-banner, .services-banner, .about-banner {
+    min-width: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner > div {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 86vh;
+}
+
+.products-banner > div, .services-banner > div, .about-banner > div {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 60vh;
+}
+.blog-banner > div {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 210px;
+}
+
+.navbar {
+    background: transparent !important;
+}
+
+/* 
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-brand:focus {
+    color: #fff;
+}*/
+
+/*Enforcing police*/
+.navbar-brand img {
+    vertical-align: middle !important;
+    border-style: none !important;
+}
+/**/
+
+.navbar-brand .logo {
+    max-width: 100px;
+}
+
+.navbar-brand {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+button.navbar-toggler{
+    z-index: 999999;
+    color: black;
+    /* background-color: black; */
+}
+
+button.navbar-toggler > img {
+    width: 116%;
+  
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+    font-family: 'Avenir', sans-serif;
+    letter-spacing: 1px;
+    padding: 0;
+}
+
+.navbar-light .navbar-nav .nav-link.project-nav {
+    color: black;
+}
+
+.navbar-light .navbar-nav .show > .nav-link,
+.navbar-light .navbar-nav .active > .nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: #4bc8ff;
+}
+
+.banner-text p:nth-of-type(1), .banner-text p:nth-of-type(2), .navbar-light .navbar-nav .nav-link {
+    font-weight: lighter;
+}
+
+hr {
+    margin: 0px;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.banner-text p:nth-of-type(1) {
+    color:white;
+    margin-bottom: 11px;
+}
+
+.banner-text p:nth-of-type(2) {
+    color:white;
+}
+
+.banner-text a {
+    background-color: #4BC8FF;
+    color: white;
+    border-radius: 30px;
+    padding: 13px 48px;
+    text-align: center;
+    font-size: 22px;
+}
+    .banner-text a:hover {
+        background-color: #c1170a;
+    }
+.banner-text, .products-banner-text, .services-banner-text, .about-banner-text, .blog-banner-text {
+    font-family: 'Playfair Display', serif;
+}
+
+.products-banner-text, .services-banner-text, .about-banner-text, .blog-banner-text {
+    color:white;
+    text-align: center;
+    padding-top: 18vh;
+}
+.blog-banner-text {
+    padding-top: 25px;
+}
+
+.carousel .carousel-inner {
+    text-align: center;
+}
+
+.carousel img {
+    width: 16vw;
+    padding: 10px 5.5vw;
+}
+
+.d-inline-block.img-fluid {
+    filter: grayscale(0.8);
+}
+
+.d-inline-block.img-fluid:hover {
+    filter: grayscale(0);
+}
+
+/* Media Queries */
+
+@media (max-width: 1700px) {
+    .navbar {
+        padding: 10px 9% 10px 13%;
+    }
+
+    .banner-text {
+        padding: 17vh 0 10px 13.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 31px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text, .blog-banner-text {
+        font-size: 68px;
+    }
+    .blog-banner-text {
+        font-size: 2.5rem;
+    }
+    
+    .banner-text p:nth-of-type(3) {
+        margin-top: 34px;
+    }
+    
+    .banner-text a {
+        padding: 10px 45px;
+        font-size: 29px;
+    }
+}
+
+@media(max-width: 1080px) {
+    .navbar-light .navbar-brand img {
+        width: 94%;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    /* .navbar-light .navbar-brand {
+        font-size: 27px;
+    } */
+}
+
+@media(max-width: 1050px) {
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 12px;
+    }
+
+}
+
+@media(max-width: 1024px) {
+    .navbar-light .navbar-brand {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    nav.navbar {
+        padding: 15px 0;
+        /* background-color: white; */
+    }
+
+    button.navbar-toggler {
+        border-radius: 0px;
+    }
+
+    /* div#navbarNavAltMarkup {
+        background: rgba(0, 0, 0, 0.81);
+        text-align: center;
+        padding: 1em 0;
+    } */
+    
+    .navbar-collapse.navbar-toggle {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 99;
+        width: 280px;
+        height: 100%;
+        background-color: white;
+        overflow: auto;
+        padding: 14vh 5vh;
+    }
+
+    .navbar-light .navbar-nav a.i-f-content {
+        color: white;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        color: black;
+        font-size: 108%;
+        letter-spacing: 0.5px;
+        margin: .72em 0em;
+    }
+
+    .navbar-light .navbar-nav .promo-button.nav-link {
+        display: none;
+    }
+
+    .banner-text {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    header > p, header hr {
+        display: none;
+    }
+
+}
+
+@media (max-width: 786px) {
+
+    .navbar-light .navbar-brand {
+        padding-left: 15px !important;
+    }
+
+    button.navbar-toggler {
+        padding: 0 5px !important;
+        margin-right: 15px !important;
+    }
+
+    button.navbar-toggler.collapsed {
+        margin-left: 0.5rem;
+        position: relative;
+    }
+}
+
+@media (max-width: 700px) {
+    .banner {
+        background-image: url("../images/homepage_banner (1).jpg");
+    }
+
+    .banner-text {
+        padding-top: 17vh;
+    }
+
+    .banner-text a {
+        padding-right: 32px;
+        padding-left: 32px;
+        border-radius: 36px;
+        font-size: 21px;
+    }
+
+    .carousel img {
+        width: 19%;
+        padding: 10px 5vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .banner-text {
+        padding-top: 23.5vh;
+    }
+    
+    .banner-text p:nth-of-type(1) {
+        font-size: 20px;
+        line-height: 27px;
+    }
+
+    .banner-text p:nth-of-type(2) {
+        font-size: 34px;
+        padding-left: 5px;
+        line-height: 44px;
+    }
+
+    .products-banner-text, .services-banner-text, .about-banner-text, .blog-banner-text {
+        font-size: 34px;
+    }
+
+    .banner-text p:nth-of-type(3) {
+        margin-top: 30px;
+        line-height: 25px;
+    }
+
+    .banner-text a {
+        padding-right: 31px;
+        padding-left: 31px;
+        border-radius: 36px;
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 500px) and (min-width: 415px) {
+    .banner-text {
+        padding-top: 22vw;
+    }
+}
+
+@media (max-width: 413px) and (min-width: 400px) {
+    .banner-text {
+        padding-top: 22vw;
+    }
+}
+
+@media (max-width: 400px) {
+    .banner-text {
+        padding-top: 24vw;
+    }
+
+    .carousel img {
+        width: 18%;
+        padding: 10px 5vw;
+    }
+}
+
+@media(max-width: 320px) {
+
+    .navbar-light .navbar-brand {
+        font-size: 24px;
+    }
+
+    button.navbar-toggler {
+        padding: 2px 6px;
+    }
+
+    .carousel img {
+        width: 18.5%;
+        padding: 10px 5vw;
+    }
+}
+
+@media (min-width: 500px) {
+    
+
+    .banner-text span:nth-of-type(2) {
+        display: block;
+        margin-top: -12px;
+    }
+
+    .banner-text br {
+        display: none;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 23px;
+        line-height: 27px;
+    }
+    
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 700px) {
+    
+
+    .banner-text {
+        padding-top: 15vh;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 25px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 46.5px;
+    }
+
+    .banner-text a {
+        padding-right: 35px;
+        padding-left: 35px;
+        font-size: 21px;
+    }
+}
+
+@media (min-width: 992px) {
+    #navbarNavAltMarkup {
+        padding-top: 16px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 18px;
+        /* text-transform: capitalize; */
+    }
+
+    header > p {
+        margin-top: -17px;
+    }
+
+    .banner-text {
+        padding-top: 16.5vh;
+    }
+}
+
+@media(max-width: 1150px) and (min-width: 1053px) {
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 18px;
+    }
+}
+
+@media(max-width: 1300px) and (min-width: 1151px) {
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 21px;
+    }
+}
+
+@media(max-width: 1500px) and (min-width: 1301px) {
+    nav.navbar {
+        padding: 1em 9% 1em 12.5%;
+        
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 24px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 13.8px;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 27px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 50px;
+    }
+    
+    .banner-text p:nth-of-type(3) {
+        margin-top: 34px;
+    }
+    
+    .banner-text a {
+        padding: 8px 38px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1501px) {
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 27px;
+    }
+}
+
+@media(max-width: 1659px) and (min-width: 1501px) {
+    nav.navbar {
+        padding: 1em 9% 1em 12.5%;
+        
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 16px;
+    }
+
+    .banner-text {
+        padding-top: 17vh;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 30px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 55px;
+    }
+    
+    .banner-text p:nth-of-type(3) {
+        margin-top: 34px;
+    }
+    
+    .banner-text a {
+        padding: 10px 34px;
+        font-size: 31px;
+    }
+}
+
+@media (min-width: 1660px) {
+    nav.navbar {
+        padding: 1em 9.5% 1em 13%;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 18px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 30px;
+    }
+
+    .banner-text {
+        padding: 17vh 0 10px 13.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 31.5px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 60px;
+    }
+    
+    .banner-text p:nth-of-type(3) {
+        margin-top: 34px;
+    }
+    
+    .banner-text a {
+        padding: 10px 45px;
+        font-size: 31px;
+    }
+}
+
+@media (min-width: 1920px) {
+    nav.navbar {
+        padding: 1em 9.5% 1.2em 14%;
+    }
+
+    .navbar-light .navbar-brand img {
+        width: 110%;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 20px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 32px;
+    }
+
+    .banner-text {
+        padding: 19vh 0 10px 14.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 33px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 72px;
+    }
+
+    .banner-text a {
+        padding: 10px 45px;
+        font-size: 31px;
+    }
+}
+
+@media (min-width: 2100px) {
+    nav.navbar {
+        padding: 1.5em 9.5% 1.5em 14%;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 22px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 34px;
+    }
+
+    .banner-text {
+        padding: 21vh 0 10px 14.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 36px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 76.5px;
+    }
+    
+    .banner-text a {
+        padding: 10px 45px;
+        font-size: 31px;
+    }
+}
+
+@media (min-width: 2250px) {
+    nav.navbar {
+        padding: 1.5em 9.5% 2em 14%;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 23px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 34px;
+    }
+
+    .banner-text {
+        padding: 21.5vh 0 10px 14.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 38px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 78px;
+    }
+    
+    .banner-text a {
+        padding: 12px 47px;
+        font-size: 34px;
+    }
+}
+
+@media (min-width: 2700px) {
+    nav.navbar {
+        padding: 1.5em 9.5% 2em 14%;
+    }
+
+    .navbar-light .navbar-brand img {
+        width: 120%;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-size: 26px;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        margin: 0 37px;
+    }
+
+    .banner-text {
+        padding: 22vh 0 10px 14.5%;
+    }
+
+    .banner-text p:nth-of-type(1) {
+        font-size: 41.5px;
+    }
+
+    .banner-text p:nth-of-type(2), .products-banner-text, .services-banner-text, .about-banner-text {
+        font-size: 84px;
+    }
+    
+    .banner-text a {
+        padding: 13px 48px;
+        font-size: 35.5px;
+    }
+}
+/* End of Media Queries */
+
+
+
